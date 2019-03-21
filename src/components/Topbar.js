@@ -133,7 +133,7 @@ class Topbar extends Component {
                     <Typography variant="h6" color="inherit" noWrap>
                       <Link to='/' className={classes.link}>
                         <img width={20} src={logo} alt="" />
-                        <span className={classes.tagline}>Material Sense</span>
+                        <span className={classes.tagline}>Demo Sense</span>
                       </Link>
                     </Typography>
                   </div>

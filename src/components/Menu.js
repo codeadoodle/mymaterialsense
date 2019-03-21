@@ -9,7 +9,7 @@ const Menu = [
     },
     {
       label: "Signup",
-      pathname: "/"
+      pathname: "/signup"
     },
     {
       label: "Wizard",
