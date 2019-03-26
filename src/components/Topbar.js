@@ -14,6 +14,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Menu from './Menu';
+import Button from '@material-ui/core/Button';
 
 const logo = require('../images/logo.svg');
 
@@ -35,6 +36,9 @@ const styles = theme => ({
       justifyContent: 'space-evenly',
       alignItems: 'center'
     }
+  },
+  grow: {
+    flexGrow: 1,
   },
   link: {
     textDecoration: 'none',
@@ -64,6 +68,14 @@ const styles = theme => ({
   },
   iconButton: {
     float: 'right'
+  },
+  buttonContainer: {
+    position: 'relative',
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
   },
   tabContainer: {
     marginLeft: 32,
@@ -140,17 +152,19 @@ class Topbar extends Component {
                   { !this.props.noTabs && (
                     <React.Fragment>
                       <div className={classes.productLogo}>
-                        <Typography>
+                        <Typography  color="inherit">
                           A material UI Template
                         </Typography>
                       </div>
-                      <div className={classes.iconContainer}>
+                      <div  className={classes.grow}>&nbsp;</div>
+                      {/* <div className={classes.iconContainer}>
                         <IconButton onClick={this.mobileMenuOpen} className={classes.iconButton} color="inherit" aria-label="Menu">
                           <MenuIcon />
                         </IconButton>
-                      </div>
+                      </div> */}
                       <div className={classes.tabContainer}>
-                        <SwipeableDrawer anchor="right" open={this.state.menuDrawer} onClose={this.mobileMenuClose} onOpen={this.mobileMenuOpen}>
+                    
+                        {/* <SwipeableDrawer anchor="right" open={this.state.menuDrawer} onClose={this.mobileMenuClose} onOpen={this.mobileMenuOpen}>
                           <AppBar title="Menu" />
                           <List>
                             {Menu.map((item, index) => (
@@ -159,17 +173,20 @@ class Topbar extends Component {
                               </ListItem>
                             ))}
                           </List>
-                        </SwipeableDrawer>
+                        </SwipeableDrawer> */}
+                       
                         <Tabs
                           value={this.current() || this.state.value}
-                          indicatorColor="primary"
+                          indicatorColor="secondary"
                           textColor="primary"
-                          onChange={this.handleChange}
-                        >
-                          {Menu.map((item, index) => (
-                            <Tab key={index} component={Link} to={{pathname: item.pathname, search: this.props.location.search}} classes={{root: classes.tabItem}} label={item.label} />
-                          ))}
+                          onChange={this.handleChange}>
+                            {Menu.map((item, index) => (
+                              <Tab key={index} component={Link} to={{pathname: item.pathname, search: this.props.location.search}} classes={{root: classes.tabItem}} label={item.label} />
+                            ))}
                         </Tabs>
+                        {/* <div >
+                          <Button color="primary">Login</Button> 
+                        </div> */}
                       </div>
                     </React.Fragment>
                   )}

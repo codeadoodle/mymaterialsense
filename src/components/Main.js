@@ -93,9 +93,21 @@ const styles = theme => ({
   buttonBar: {
     display: 'flex'
   },
+  headerBar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  grow: {
+    flexGrow: 1,
+  },
   alignRight: {
     display: 'flex',
     justifyContent: 'flex-end'
+  },
+  alignLeft: {
+    display: 'flex',
+    justifyContent: 'flex-start'
   },
   noBorder: {
     borderBottomStyle: 'hidden'
@@ -235,6 +247,13 @@ class Main extends Component {
           <Grid container justify="center">
             <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
             <Grid container item xs={12} >
+            <Grid item xs={12} >
+            <div className={classes.headerBar}>
+            <Typography color='primary'>Search </Typography>
+            <div  className={classes.grow}>&nbsp;</div>
+            <Button color='primary' variant="contained" className={classes.actionButtom}>Create</Button>
+             </div>
+                </Grid>
                 <Grid item xs={12} >
                 <Paper className={classes.paper}>
                 <div className={classes.myDeckMap}>
@@ -261,6 +280,15 @@ class Main extends Component {
                 />
                 )}
                 </DeckGL>
+                <div className={classes.box}>
+                      
+                        <div className={classes.alignRight}>
+                          <Button color='primary' variant="contained" className={classes.actionButtom}>
+                            Learn more
+                          </Button>
+                        </div>
+                        
+                      </div>
                 </div>
                 </Paper>
 
@@ -294,6 +322,7 @@ class Main extends Component {
           />
         )}
       </DeckGL></MapGL> */}
+      
         </Grid>
 
         <Grid item xs={12}>

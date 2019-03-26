@@ -3,22 +3,23 @@ const Menu = [
       label: "Home",
       pathname: "/"
     },
-    {
-      label: "Dashboard",
-      pathname: "/"
-    },
+   
     {
       label: "Signup",
       pathname: "/signup"
     },
-    {
-      label: "Wizard",
-      pathname: "/"
-    },
-    {
-      label: "Cards",
-      pathname: "/"
-    }
+    // {
+    //     label: "Dashboard",
+    //     pathname: "/"
+    //   },
+    // {
+    //   label: "Wizard",
+    //   pathname: "/"
+    // },
+    // {
+    //   label: "Cards",
+    //   pathname: "/"
+    // }
   
   ];
   
