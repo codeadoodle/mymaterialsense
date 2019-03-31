@@ -6,11 +6,14 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Topbar from './Topbar';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import DeckGL, {GeoJsonLayer, ScatterplotLayer} from 'deck.gl';
 import MapGL, {StaticMap} from 'react-map-gl';
 import {MapboxLayer} from '@deck.gl/mapbox';
+
+import socketIOClient from "socket.io-client";
 
 const INITIAL_VIEW_STATE = {
     // longitude: -74.50,
@@ -135,10 +138,15 @@ const styles = theme => ({
 
 class Main extends Component {
 
+
   state = {
     learnMoredialog: false,
-    getStartedDialog: false
+    getStartedDialog: false,
+    endpoint: 'http://localhost:3100/',
+    servertimer:""
   };
+ 
+
   // DeckGL and mapbox will both draw into this WebGL context
   _onWebGLInitialized = (gl) => {
     this.setState({gl});
@@ -153,12 +161,21 @@ class Main extends Component {
     map.addLayer(new MapboxLayer({id: '3d-buildings', deck}), firstLabelLayerId);
   }
 
-  componentDidMount() {}
 
 
+  componentDidMount() {
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
+    socket.on("FromAPI", data => this.setState({ response: data }));
+    socket.on("timer", data => {
+      this.setState({ servertimer: data.message });
+      console.log("receive timer ",data.message)
+    });
+  }
 
 
   render() {
+    // const socket = socketIOClient(this.state.endpoint);
     const { classes } = this.props;
     const {gl} = this.state;
     const LIGHT_SETTINGS = {
@@ -248,12 +265,23 @@ class Main extends Component {
             <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
             <Grid container item xs={12} >
             <Grid item xs={12} >
+            <Typography color='primary'>Search  {this.state.servertimer}</Typography>
             <div className={classes.headerBar}>
-            <Typography color='primary'>Search </Typography>
-            <div  className={classes.grow}>&nbsp;</div>
+         
+           <div  className={classes.grow}>
+              <TextField
+              id="standard-uncontrolled"
+              label="some label"
+              defaultValue="foo"
+              className={classes.textField}
+              margin="normal"
+              fullWidth={true}
+            />  
+            </div>
+            {/* <div  className={classes.grow}>&nbsp;</div> */}
             <Button color='primary' variant="contained" className={classes.actionButtom}>Create</Button>
              </div>
-                </Grid>
+             </Grid>
                 <Grid item xs={12} >
                 <Paper className={classes.paper}>
                 <div className={classes.myDeckMap}>
@@ -280,16 +308,14 @@ class Main extends Component {
                 />
                 )}
                 </DeckGL>
-                <div className={classes.box}>
-                      
-                        <div className={classes.alignRight}>
-                          <Button color='primary' variant="contained" className={classes.actionButtom}>
-                            Learn more
-                          </Button>
-                        </div>
-                        
-                      </div>
                 </div>
+                <div className={classes.box2}>
+                      <div className={classes.alignRight}>
+                        <Button color='primary' variant="contained" className={classes.actionButtom}>
+                          Learn more
+                        </Button>
+                      </div>
+                 </div>
                 </Paper>
 
                 {/* <MapGL
@@ -324,6 +350,7 @@ class Main extends Component {
       </DeckGL></MapGL> */}
       
         </Grid>
+        <hr/>
 
         <Grid item xs={12}>
                     <Paper className={classes.paper}>
